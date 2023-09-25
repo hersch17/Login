@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles/login.css";
 const Login = () => {
-  const [currTab, setCurrTab] = useState(1);
+  const [currTab, setCurrTab] = useState();
   const toggleTab = (idx) => {
     console.log("from ", idx);
     setCurrTab(idx);
@@ -55,8 +55,22 @@ const Login = () => {
 };
 
 const EventAdminForm = () => {
+  const [eventAdminForm, setEventAdminForm] =
+    useState({
+      id: "",
+      email: "",
+      password: "",
+      mobile: "",
+    });
+  function onChange(event) {
+    const { name, value } = event.target;
+    setEventAdminForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  }
   return (
-    <div>
+    <div className="event-admin-form">
       <div className="login-form-title">
         Add Details
       </div>
@@ -66,9 +80,11 @@ const EventAdminForm = () => {
         </label>
         <input
           className="login-form-text-inputs"
-          name="name"
+          name="id"
           autoFocus
           type="text"
+          value={eventAdminForm.id}
+          onChange={(e) => onChange(e)}
         />
       </div>
       <div className="login-form-input-grp">
@@ -79,6 +95,8 @@ const EventAdminForm = () => {
           className="login-form-text-inputs"
           name="email"
           type="email"
+          value={eventAdminForm.email}
+          onChange={(e) => onChange(e)}
         />
       </div>
       <div className="login-form-input-grp">
@@ -89,12 +107,18 @@ const EventAdminForm = () => {
           className="login-form-text-inputs"
           name="password"
           type="password"
+          value={eventAdminForm.password}
+          onChange={(e) => onChange(e)}
         />
       </div>
+      <button className="submit-btn">
+        Submit
+      </button>
     </div>
   );
 };
 const GeneralAdminForm = () => {
+  const [uniqueID, setUniqueID] = useState("");
   return (
     <div>
       <div className="login-form-title">
@@ -107,10 +131,17 @@ const GeneralAdminForm = () => {
         <input
           className="login-form-text-inputs"
           name="uniqueid"
+          value={uniqueID}
+          onChange={(event) =>
+            setUniqueID(event.value)
+          }
           autoFocus
           type="text"
         />
       </div>
+      <button className="submit-btn">
+        Submit
+      </button>
     </div>
   );
 };
