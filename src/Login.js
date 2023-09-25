@@ -54,7 +54,7 @@ const Login = () => {
   );
 };
 
-const GeneralAdminForm = () => {
+const EventAdminForm = () => {
   return (
     <div>
       <div className="login-form-title">
@@ -94,7 +94,7 @@ const GeneralAdminForm = () => {
     </div>
   );
 };
-const EventAdminForm = () => {
+const GeneralAdminForm = () => {
   return (
     <div>
       <div className="login-form-title">
