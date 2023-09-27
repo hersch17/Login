@@ -72,7 +72,7 @@ const EventAdminForm = () => {
   return (
     <div className="event-admin-form">
       <div className="login-form-title">
-        Add Details
+        Enter Details
       </div>
       <div className="login-form-input-grp">
         <label className="login-form-text-label">
@@ -122,7 +122,7 @@ const GeneralAdminForm = () => {
   return (
     <div>
       <div className="login-form-title">
-        Add Details
+        Enter Details
       </div>
       <div className="login-form-input-grp">
         <label className="login-form-text-label">

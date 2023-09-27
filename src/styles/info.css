@@ -1,0 +1,19 @@
+*{
+    margin: 0px;
+}
+.container{
+    padding: 1rem;
+    border-radius: 1rem;
+}
+.display-grp{
+    border: solid 2px black;
+    margin: 1rem;
+    padding: 1rem;
+    border-radius: 1rem;
+}
+.events p{
+    text-indent: 2rem;
+}
+.passes div{
+    text-indent: 2rem;
+}

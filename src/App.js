@@ -5,8 +5,7 @@ import {
   Routes,
 } from "react-router-dom";
 import Login from "./Login.js";
-import GeneralAdmin from "./GeneralAdmin.js";
-import EventAdmin from "./EventAdmin";
+import StudentInfo from "./StudentInfo";
 
 function App() {
   return (
@@ -14,12 +13,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route
-          path="/generaladmin"
-          element={<GeneralAdmin />}
-        />
-        <Route
-          path="/eventadmin"
-          element={<EventAdmin />}
+          path="/studentinfo"
+          element={<StudentInfo />}
         />
       </Routes>
     </BrowserRouter>
