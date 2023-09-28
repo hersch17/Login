@@ -4,8 +4,8 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import Login from "./Login.js";
-import StudentInfo from "./StudentInfo";
+import Login from "./pages/Login.js";
+import StudentInfo from "./pages/StudentInfo";
 
 function App() {
   return (

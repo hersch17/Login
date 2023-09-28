@@ -1,7 +1,15 @@
-import React from "react";
-import "./styles/info.css";
+import React, { useEffect } from "react";
+import {
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import { fetchAdminEvents } from "../api";
+import "../styles/info.css";
 
 const StudentInfo = () => {
+  const location = useLocation();
+  const type = location.state.profile.type;
+  const token = location.state.token;
   //response from api
   let userDetails = {
     name: "Atul",
@@ -30,6 +38,7 @@ const StudentInfo = () => {
   };
   return (
     <div className="container">
+      <h1>{type}</h1>
       <div className="display-grp">
         <div className="name">
           <h3>Name</h3>

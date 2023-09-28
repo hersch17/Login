@@ -1,9 +1,31 @@
 import React, { useState } from "react";
-import "./styles/login.css";
+import {
+  useNavigate,
+  //Link,
+} from "react-router-dom";
+//import { useDispatch } from "react-redux";
+import "react-toastify/dist/ReactToastify.css";
+import {
+  toast,
+  ToastContainer,
+} from "react-toastify";
+
+import "../styles/login.css";
+import { loginRegister } from "../api";
+
+const toastStyle = {
+  position: "top-right",
+  autoClose: 2000,
+  hideProgressBar: true,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  progress: undefined,
+  theme: "dark",
+};
 const Login = () => {
-  const [currTab, setCurrTab] = useState();
+  const [currTab, setCurrTab] = useState(2);
   const toggleTab = (idx) => {
-    console.log("from ", idx);
     setCurrTab(idx);
   };
   return (
@@ -27,7 +49,7 @@ const Login = () => {
           }
           onClick={() => toggleTab(2)}
         >
-          Event Admin
+          Event/Super Admin
         </div>
       </div>
       <div className="form-tabs">
@@ -55,13 +77,37 @@ const Login = () => {
 };
 
 const EventAdminForm = () => {
+  const navigate = useNavigate();
+  //const dispatch = useDispatch();
   const [eventAdminForm, setEventAdminForm] =
     useState({
-      id: "",
       email: "",
       password: "",
-      mobile: "",
+      remember: false,
     });
+  function handleSubmit() {
+    //formData.isRegistration = false;
+    //event.preventDefault();
+    loginRegister(eventAdminForm)
+      .then((data) => {
+        //console.log("data: ", data);
+        if (data.profile.type === "participant") {
+          toast.error("Not an Admin", toastStyle);
+        } else {
+          toast.info("Success", toastStyle);
+          navigate("/studentinfo", {
+            state: {
+              profile: data.profile,
+              token: data.token,
+            },
+          });
+        }
+      })
+      .catch((err) => {
+        toast.error(err, toastStyle);
+      });
+  }
+
   function onChange(event) {
     const { name, value } = event.target;
     setEventAdminForm((prev) => ({
@@ -74,7 +120,7 @@ const EventAdminForm = () => {
       <div className="login-form-title">
         Enter Details
       </div>
-      <div className="login-form-input-grp">
+      {/* <div className="login-form-input-grp">
         <label className="login-form-text-label">
           ID *
         </label>
@@ -86,7 +132,7 @@ const EventAdminForm = () => {
           value={eventAdminForm.id}
           onChange={(e) => onChange(e)}
         />
-      </div>
+      </div> */}
       <div className="login-form-input-grp">
         <label className="login-form-text-label">
           Email *
@@ -111,9 +157,13 @@ const EventAdminForm = () => {
           onChange={(e) => onChange(e)}
         />
       </div>
-      <button className="submit-btn">
+      <button
+        className="submit-btn"
+        onClick={handleSubmit}
+      >
         Submit
       </button>
+      <ToastContainer />
     </div>
   );
 };
