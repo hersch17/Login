@@ -48,6 +48,7 @@ export const fetchAdminEvents = async (token) => {
   })
     .then((response) => response.json())
     .then((data) => {
+      console.log(data.events);
       return data.events;
     })
     .catch((err) => {

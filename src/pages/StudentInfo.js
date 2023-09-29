@@ -36,8 +36,23 @@ const StudentInfo = () => {
     ],
     passes: [{ name: "PassName" }],
   };
+  const handleScan = () => {
+    fetchAdminEvents(token)
+      .then((data) => {
+        console.log("data: ", data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const eventName = "Robowars";
+  const admin = "eventAdmin";
+
   return (
     <div className="container">
+      <button onClick={() => handleScan()}>
+        SCAN
+      </button>
       <h1>{type}</h1>
       <div className="display-grp">
         <div className="name">
@@ -66,16 +81,35 @@ const StudentInfo = () => {
       <div className="display-grp">
         <div className="events">
           <h3>Registered Events</h3>
-          {userDetails.events.map((item, idx) => {
-            return (
-              <div key={item}>
-                <h4>
-                  {idx + 1}. {item.name}
-                </h4>
-                <p>{item.description}</p>
-              </div>
-            );
-          })}
+          {type === "superAdmin"
+            ? userDetails.events.map(
+                (item, idx) => {
+                  return (
+                    <div key={item}>
+                      <h4>
+                        {idx + 1}. {item.name}{" "}
+                        <button>MARK</button>
+                      </h4>
+                      <p>{item.description}</p>
+                    </div>
+                  );
+                }
+              )
+            : userDetails.events
+                .filter((ele) => {
+                  return ele.name === eventName;
+                })
+                .map((item, idx) => {
+                  return (
+                    <div key={item}>
+                      <h4>
+                        {idx + 1}. {item.name}{" "}
+                        <button>MARK</button>
+                      </h4>
+                      <p>{item.description}</p>
+                    </div>
+                  );
+                })}
         </div>
       </div>
       <div className="display-grp">

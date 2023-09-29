@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 import {
   useNavigate,
   //Link,
@@ -25,6 +28,8 @@ const toastStyle = {
 };
 const Login = () => {
   const [currTab, setCurrTab] = useState(2);
+
+  useState(false);
   const toggleTab = (idx) => {
     setCurrTab(idx);
   };
@@ -94,6 +99,7 @@ const EventAdminForm = () => {
         if (data.profile.type === "participant") {
           toast.error("Not an Admin", toastStyle);
         } else {
+          sessionStorage.setItem("login", true);
           toast.info("Success", toastStyle);
           navigate("/studentinfo", {
             state: {
