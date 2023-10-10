@@ -43,7 +43,7 @@ const EventAdminForm = () => {
       password: "",
       remember: false,
     });
-  const [admin, setAdmin] = useState("");
+  // const [admin, setAdmin] = useState("");
   function handleSubmit() {
     //formData.isRegistration = false;
     //event.preventDefault();
@@ -51,31 +51,33 @@ const EventAdminForm = () => {
       .then((data) => {
         if (data.profile.type === "participant") {
           toast.error("Not an Admin", toastStyle);
-        } else if (
-          data.profile.type !== "eventAdmin" &&
-          admin === "eventAdmin"
-        ) {
-          toast.error(
-            "Not an Event Admin",
-            toastStyle
-          );
-        } else if (
-          data.profile.type !== "superAdmin" &&
-          admin === "superAdmin"
-        ) {
-          toast.error(
-            "Not a Super Admin",
-            toastStyle
-          );
-        } else if (
-          data.profile.type !== "generalAdmin" &&
-          admin === "generalAdmin"
-        ) {
-          toast.error(
-            "Not a General Admin",
-            toastStyle
-          );
-        } else {
+        }
+        // } else if (
+        //   data.profile.type !== "eventAdmin" &&
+        //   admin === "eventAdmin"
+        // ) {
+        //   toast.error(
+        //     "Not an Event Admin",
+        //     toastStyle
+        //   );
+        // } else if (
+        //   data.profile.type !== "superAdmin" &&
+        //   admin === "superAdmin"
+        // ) {
+        //   toast.error(
+        //     "Not a Super Admin",
+        //     toastStyle
+        //   );
+        // } else if (
+        //   data.profile.type !== "generalAdmin" &&
+        //   admin === "generalAdmin"
+        // ) {
+        //   toast.error(
+        //     "Not a General Admin",
+        //     toastStyle
+        //   );
+        // }
+        else {
           sessionStorage.setItem("login", true);
           toast.info("Success", toastStyle);
           setTimeout(() => {
@@ -101,20 +103,20 @@ const EventAdminForm = () => {
       [name]: value,
     }));
   }
-  const options = [
-    { value: "superAdmin", label: "Super Admin" },
-    { value: "eventAdmin", label: "Event Admin" },
-    {
-      value: "generalAdmin",
-      label: "General Admin",
-    },
-  ];
-  const selectChange = (value) => {
-    setAdmin(value.value);
-  };
+  // const options = [
+  //   { value: "superAdmin", label: "Super Admin" },
+  //   { value: "eventAdmin", label: "Event Admin" },
+  //   {
+  //     value: "generalAdmin",
+  //     label: "General Admin",
+  //   },
+  // ];
+  // const selectChange = (value) => {
+  //   setAdmin(value.value);
+  // };
   return (
     <div className="admin-form">
-      <div className="select">
+      {/* <div className="select">
         <Select
           options={options}
           onChange={(value) => {
@@ -151,7 +153,7 @@ const EventAdminForm = () => {
             }),
           }}
         />
-      </div>
+      </div> */}
 
       {/* <div className="login-form-input-grp">
         <label className="login-form-text-label">
