@@ -48,8 +48,69 @@ export const fetchAdminEvents = async (token) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data.events);
+      //console.log(data.events);
       return data.events;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+export const getUserByUniqueID = async (
+  uniqueID
+) => {
+  ////console.log("Event Fetched");
+  return fetch(`${url}/users/scan`, {
+    headers: {
+      "Content-Type": "application/json",
+      mode: "cors",
+      "Access-Control-Allow-Origin": "*",
+    },
+    method: "POST",
+    body: JSON.stringify(uniqueID),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.success) {
+        //console.log(data);
+        return data;
+      }
+      throw data;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+export const getAttendanceStatus = (body) => {
+  return fetch(`${url}/events/attend`, {
+    headers: {
+      mode: "cors",
+      "Access-Control-Allow-Origin": "*",
+    },
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+export const markAttendance = (body) => {
+  return fetch(`${url}/events/attend`, {
+    headers: {
+      "Content-Type": "application/json",
+      mode: "cors",
+      "Access-Control-Allow-Origin": "*",
+    },
+    method: "POST",
+    body: JSON.stringify(body),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data) {
+        return data;
+      }
+      throw data;
     })
     .catch((err) => {
       throw err;

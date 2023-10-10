@@ -5,8 +5,9 @@ import {
   Routes,
 } from "react-router-dom";
 import Login from "./pages/Login.js";
-import StudentInfo from "./pages/StudentInfo";
+import Scanner from "./pages/Scanner";
 import PrivateRoutes from "./utils/PrivateRoutes";
+import RegisteredEvents from "./pages/RegisteredEvents";
 
 function App() {
   return (
@@ -14,11 +15,15 @@ function App() {
       <Routes>
         <Route element={<PrivateRoutes />}>
           <Route
-            path="/studentinfo"
-            element={<StudentInfo />}
+            path="/scanner"
+            element={<Scanner />}
           />
         </Route>
         <Route path="/" element={<Login />} />
+        <Route
+          path="/studentinfo"
+          element={<RegisteredEvents />}
+        />
       </Routes>
     </BrowserRouter>
   );

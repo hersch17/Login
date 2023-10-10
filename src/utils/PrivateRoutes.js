@@ -1,5 +1,5 @@
 import React from "react";
-import StudentInfo from "../pages/StudentInfo";
+import StudentInfo from "../pages/Scanner";
 import { Navigate } from "react-router-dom";
 
 const PrivateRoutes = () => {

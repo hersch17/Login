@@ -2,11 +2,11 @@ import React, {
   useEffect,
   useState,
 } from "react";
+import Select from "react-select";
 import {
   useNavigate,
   //Link,
 } from "react-router-dom";
-//import { useDispatch } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
 import {
   toast,
@@ -27,56 +27,9 @@ const toastStyle = {
   theme: "dark",
 };
 const Login = () => {
-  const [currTab, setCurrTab] = useState(2);
-
-  useState(false);
-  const toggleTab = (idx) => {
-    setCurrTab(idx);
-  };
   return (
     <div className="container">
-      <div className="bloc-tabs">
-        <div
-          className={
-            currTab === 1
-              ? "tabs active-tab"
-              : "tabs"
-          }
-          onClick={() => toggleTab(1)}
-        >
-          General Admin
-        </div>
-        <div
-          className={
-            currTab === 2
-              ? "tabs active-tab"
-              : "tabs"
-          }
-          onClick={() => toggleTab(2)}
-        >
-          Event/Super Admin
-        </div>
-      </div>
-      <div className="form-tabs">
-        <div
-          className={
-            currTab === 1
-              ? "form active-form"
-              : "form"
-          }
-        >
-          <GeneralAdminForm />
-        </div>
-        <div
-          className={
-            currTab === 2
-              ? "form active-form"
-              : "form"
-          }
-        >
-          <EventAdminForm />
-        </div>
-      </div>
+      <EventAdminForm />
     </div>
   );
 };
@@ -90,23 +43,50 @@ const EventAdminForm = () => {
       password: "",
       remember: false,
     });
+  const [admin, setAdmin] = useState("");
   function handleSubmit() {
     //formData.isRegistration = false;
     //event.preventDefault();
     loginRegister(eventAdminForm)
       .then((data) => {
-        //console.log("data: ", data);
         if (data.profile.type === "participant") {
           toast.error("Not an Admin", toastStyle);
+        } else if (
+          data.profile.type !== "eventAdmin" &&
+          admin === "eventAdmin"
+        ) {
+          toast.error(
+            "Not an Event Admin",
+            toastStyle
+          );
+        } else if (
+          data.profile.type !== "superAdmin" &&
+          admin === "superAdmin"
+        ) {
+          toast.error(
+            "Not a Super Admin",
+            toastStyle
+          );
+        } else if (
+          data.profile.type !== "generalAdmin" &&
+          admin === "generalAdmin"
+        ) {
+          toast.error(
+            "Not a General Admin",
+            toastStyle
+          );
         } else {
           sessionStorage.setItem("login", true);
           toast.info("Success", toastStyle);
-          navigate("/studentinfo", {
-            state: {
-              profile: data.profile,
-              token: data.token,
-            },
-          });
+          setTimeout(() => {
+            console.log(data.profile.type);
+            navigate("/scanner", {
+              state: {
+                profile: data.profile,
+                token: data.token,
+              },
+            });
+          }, 1000);
         }
       })
       .catch((err) => {
@@ -121,11 +101,58 @@ const EventAdminForm = () => {
       [name]: value,
     }));
   }
+  const options = [
+    { value: "superAdmin", label: "Super Admin" },
+    { value: "eventAdmin", label: "Event Admin" },
+    {
+      value: "generalAdmin",
+      label: "General Admin",
+    },
+  ];
+  const selectChange = (value) => {
+    setAdmin(value.value);
+  };
   return (
-    <div className="event-admin-form">
-      <div className="login-form-title">
-        Enter Details
+    <div className="admin-form">
+      <div className="select">
+        <Select
+          options={options}
+          onChange={(value) => {
+            selectChange(value);
+          }}
+          placeholder="Designation"
+          styles={{
+            container: (styles) => ({
+              ...styles,
+            }),
+            control: (baseStyles, state) => ({
+              ...baseStyles,
+              backgroundColor: "#2d2d2d",
+            }),
+            singleValue: (styles) => ({
+              ...styles,
+              color: "#757575",
+              textIndent: "10px",
+            }),
+            option: (style, state) => ({
+              ...style,
+              backgroundColor: state.isFocused
+                ? "#2d2d2d"
+                : "#2d2d2d",
+              backgroundColor: state.isSelected
+                ? "#a9a9a9"
+                : "#2d2d2d",
+              color: "#757575",
+            }),
+            placeholder: (styles) => ({
+              ...styles,
+              color: "#757575",
+              textIndent: "10px",
+            }),
+          }}
+        />
       </div>
+
       {/* <div className="login-form-input-grp">
         <label className="login-form-text-label">
           ID *
@@ -141,7 +168,7 @@ const EventAdminForm = () => {
       </div> */}
       <div className="login-form-input-grp">
         <label className="login-form-text-label">
-          Email *
+          User ID:
         </label>
         <input
           className="login-form-text-inputs"
@@ -153,7 +180,7 @@ const EventAdminForm = () => {
       </div>
       <div className="login-form-input-grp">
         <label className="login-form-text-label">
-          Password *
+          Password:
         </label>
         <input
           className="login-form-text-inputs"
@@ -167,37 +194,9 @@ const EventAdminForm = () => {
         className="submit-btn"
         onClick={handleSubmit}
       >
-        Submit
+        Login
       </button>
       <ToastContainer />
-    </div>
-  );
-};
-const GeneralAdminForm = () => {
-  const [uniqueID, setUniqueID] = useState("");
-  return (
-    <div>
-      <div className="login-form-title">
-        Enter Details
-      </div>
-      <div className="login-form-input-grp">
-        <label className="login-form-text-label">
-          Unique ID *
-        </label>
-        <input
-          className="login-form-text-inputs"
-          name="uniqueid"
-          value={uniqueID}
-          onChange={(event) =>
-            setUniqueID(event.value)
-          }
-          autoFocus
-          type="text"
-        />
-      </div>
-      <button className="submit-btn">
-        Submit
-      </button>
     </div>
   );
 };
