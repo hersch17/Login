@@ -1,18 +1,10 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
-import {
-  Link,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
-import {
-  fetchAdminEvents,
-  getUserByUniqueID,
-} from "../api";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { fetchAdminEvents, getUserByUniqueID } from "../api";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import "../styles/info.css";
+import topLeft from "./../images/top-left.png";
+import user from "./../images/user.png";
 
 const Scanner = () => {
   const location = useLocation();
@@ -26,9 +18,7 @@ const Scanner = () => {
     events: [],
     passes: [],
   });
-  const [adminEvent, setAdminEvent] = useState(
-    []
-  );
+  const [adminEvent, setAdminEvent] = useState([]);
 
   if (adminType === "eventAdmin") {
     fetchAdminEvents(token)
@@ -94,16 +84,13 @@ const Scanner = () => {
   let html5QrCode;
   useEffect(() => {
     if (!html5QrCode?.getState()) {
-      const scanner = new Html5QrcodeScanner(
-        "reader",
-        {
-          qrbox: {
-            width: 100,
-            height: 100,
-          },
-          fps: 5,
-        }
-      );
+      const scanner = new Html5QrcodeScanner("reader", {
+        qrbox: {
+          width: 100,
+          height: 100,
+        },
+        fps: 5,
+      });
       scanner.render(success, error);
 
       function success(result) {
@@ -133,10 +120,14 @@ const Scanner = () => {
   }, []);
   return (
     <div className="container">
+      <img src={topLeft} alt="top-left-design" className="top-left"></img>
+      <div className="qr-space">QR SCAN THING</div>
+      <button className="submit-btn aprv">APPROVED</button>
       {scanResult ? (
         <div id="main">
           {/* Success: {scanResult} */}
 
+          <img src={user} alt="user" className="user-img"></img>
           <div
             className="user-deets"
             // navigate("/studentinfo", {
@@ -150,14 +141,11 @@ const Scanner = () => {
             //   },
             // });
           >
-            <div className="name">
-              {userDetails.name}
-            </div>
-            <div className="email">
-              {userDetails.college}
-            </div>
+            <div className="name">{userDetails.name}</div>
+            <div className="email">{userDetails.college}</div>
+            <div className="ref-id">#12FE67</div>
           </div>
-          <Link
+          {/* <Link
             to="/studentinfo"
             state={{
               name: userDetails.name,
@@ -170,7 +158,7 @@ const Scanner = () => {
             }}
           >
             Show details
-          </Link>
+          </Link> */}
         </div>
       ) : (
         <div id="reader"></div>
