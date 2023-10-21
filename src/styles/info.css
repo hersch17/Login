@@ -1,19 +1,121 @@
-*{
-    margin: 0px;
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
-.container{
-    padding: 1rem;
-    border-radius: 1rem;
+
+html {
+  box-sizing: border-box;
 }
-.display-grp{
-    border: solid 2px black;
-    margin: 1rem;
-    padding: 1rem;
-    border-radius: 1rem;
+body {
+  font-family: sans-serif;
+  font-weight: 300;
+  line-height: 1.6;
 }
-.events p{
-    text-indent: 2rem;
+.container {
+  padding: 1rem;
+  border-radius: 1rem;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
-.passes div{
-    text-indent: 2rem;
+.display-grp {
+  border: solid 2px white;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.events p {
+  text-indent: 2rem;
+}
+.passes div {
+  text-indent: 2rem;
+}
+
+/* KISHAN CHANGES */
+#root {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 1rem;
+  background-color: #0b0b0b;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+.container {
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+}
+a {
+  text-decoration: none;
+}
+a:hover {
+  cursor: pointer;
+}
+.qr-space {
+  margin-bottom: 1rem;
+  background-color: #fff;
+  min-height: 50%;
+  min-width: 70%;
+  margin-top: 30%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  font-weight: 600;
+  z-index: 5;
+}
+.top-left {
+  position: absolute;
+  top: -4%;
+  left: -4.5%;
+  transform: scale(0.8);
+}
+#main {
+  margin-bottom: -1rem;
+  background-color: black;
+  width: 100vw;
+  height: 25vh;
+  border-radius: 1rem;
+  padding: 2rem;
+  font-size: 0.8rem;
+}
+.name {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 221, 0, 0.5);
+}
+.submit-btn {
+  align-self: center;
+  justify-self: center;
+}
+.aprv {
+  font-size: 1rem;
+}
+.user-img {
+  width: 2rem;
+  margin-bottom: -1rem;
+  margin-top: 0.5rem;
+}
+.ref-id {
+  width: 30%;
+  height: 2rem;
+  background-color: #ffa20f;
+  margin-left: 35%;
+  text-align: center;
+  padding-top: 0.4rem;
+  font-weight: bold;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+  letter-spacing: 2px;
+  border-radius: 3px;
+  margin-top: 3px;
 }
