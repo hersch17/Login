@@ -15,6 +15,7 @@ import {
   ToastContainer,
   toast,
 } from "react-toastify";
+import "../styles/events.css";
 
 const RegisteredEvents = () => {
   const [eventsList, setEventsList] = useState(
@@ -137,7 +138,7 @@ const RegisteredEvents = () => {
     setContent(true);
   }, []);
   return (
-    <div>
+    <div className="container">
       <Link to="/scanner">Scan again</Link>
       {/* <div>{details.name}</div> */}
       {content && (

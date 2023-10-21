@@ -84,12 +84,20 @@ const EventAdminForm = () => {
           sessionStorage.setItem("login", true);
           toast.info("Success", toastStyle);
           setTimeout(() => {
-            console.log(data.profile.type);
+            //console.log(data.profile.type);
+            sessionStorage.setItem(
+              "adminType",
+              data.profile.type
+            );
+            sessionStorage.setItem(
+              "adminToken",
+              data.token
+            );
             navigate("/scanner", {
-              state: {
-                profile: data.profile,
-                token: data.token,
-              },
+              // state: {
+              //   profile: data.profile,
+              //   token: data.token,
+              // },
             });
           }, 1000);
         }

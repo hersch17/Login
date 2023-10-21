@@ -18,9 +18,8 @@ import topLeft from "./../images/top-left.png";
 import user from "./../images/user.png";
 
 const Scanner = () => {
-  const location = useLocation();
-  let adminType = location.state.profile.type;
-  const token = location.state.token;
+  const navigate = useNavigate();
+
   const [userDetails, setUserDetails] = useState({
     name: "LOADING...",
     college: "",
@@ -29,20 +28,41 @@ const Scanner = () => {
     events: [],
     passes: [],
   });
-  const [adminEvent, setAdminEvent] = useState(
-    []
-  );
-
-  if (adminType === "eventAdmin") {
-    fetchAdminEvents(token)
-      .then((data) => {
-        //console.log("data: ", data);
-        setAdminEvent(data);
-      })
-      .catch((err) => {
-        //console.log(err);
+  const [adminDetails, setAdminDetails] =
+    useState({
+      type: "",
+      event: "",
+      token: "",
+    });
+  useEffect(() => {
+    const adminType =
+      sessionStorage.getItem("adminType");
+    const adminToken =
+      sessionStorage.getItem("adminToken");
+    if (adminType && adminToken) {
+      if (adminType === "eventAdmin") {
+        fetchAdminEvents(adminToken)
+          .then((data) => {
+            //console.log("data: ", data);
+            setAdminDetails({
+              ...adminDetails,
+              event: data,
+            });
+          })
+          .catch((err) => {
+            //console.log(err);
+          });
+      }
+      setAdminDetails({
+        ...adminDetails,
+        token: adminToken,
+        type: adminType,
       });
-  }
+    } else {
+      navigate("/");
+    }
+  }, []);
+
   // const location = useLocation();
   // const type = location.state.profile.type;
   // const token = location.state.token;
@@ -198,7 +218,7 @@ const Scanner = () => {
                       userDetails.uniqueID,
                     events: userDetails.events,
                     passes: userDetails.passes,
-                    type: adminType,
+                    type: adminDetails.adminType,
                   }}
                   style={linkStyle}
                 >
