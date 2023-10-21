@@ -1,6 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { fetchAdminEvents, getUserByUniqueID } from "../api";
+import React, {
+  useEffect,
+  useState,
+} from "react";
+import {
+  Link,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
+import {
+  fetchAdminEvents,
+  getUserByUniqueID,
+} from "../api";
+import styled from "styled-components";
 import { Html5QrcodeScanner } from "html5-qrcode";
 import "../styles/info.css";
 import topLeft from "./../images/top-left.png";
@@ -18,7 +29,9 @@ const Scanner = () => {
     events: [],
     passes: [],
   });
-  const [adminEvent, setAdminEvent] = useState([]);
+  const [adminEvent, setAdminEvent] = useState(
+    []
+  );
 
   if (adminType === "eventAdmin") {
     fetchAdminEvents(token)
@@ -84,13 +97,16 @@ const Scanner = () => {
   let html5QrCode;
   useEffect(() => {
     if (!html5QrCode?.getState()) {
-      const scanner = new Html5QrcodeScanner("reader", {
-        qrbox: {
-          width: 100,
-          height: 100,
-        },
-        fps: 5,
-      });
+      const scanner = new Html5QrcodeScanner(
+        "reader",
+        {
+          qrbox: {
+            width: 100,
+            height: 100,
+          },
+          fps: 5,
+        }
+      );
       scanner.render(success, error);
 
       function success(result) {
@@ -118,47 +134,79 @@ const Scanner = () => {
       }
     }
   }, []);
+  const NavUnlisted = styled.ul`
+    text-decoration: none;
+  `;
+  const linkStyle = {
+    margin: "1rem",
+    textDecoration: "none",
+    color: "blue",
+    zIndex: "2",
+  };
   return (
     <div className="container">
-      <img src={topLeft} alt="top-left-design" className="top-left"></img>
-      <div className="qr-space">QR SCAN THING</div>
-      <button className="submit-btn aprv">APPROVED</button>
+      {/* <img
+        src={topLeft}
+        alt="top-left-design"
+        className="top-left"
+      ></img>
+      <div className="qr-space">
+        QR SCAN THING
+      </div>
+      <button className="submit-btn aprv">
+        APPROVED
+      </button> */}
       {scanResult ? (
         <div id="main">
           {/* Success: {scanResult} */}
-
-          <img src={user} alt="user" className="user-img"></img>
-          <div
-            className="user-deets"
-            // navigate("/studentinfo", {
-            //   state: {
-            //     name: userDetails.profile,
-            //     college: userDetails.college,
-            //     uniqueID: userDetails.uniqueID,
-            //     userID: userDetails.userID,
-            //     events: userDetails.events,
-            //     passes: userDetails.passes,
-            //   },
-            // });
-          >
-            <div className="name">{userDetails.name}</div>
-            <div className="email">{userDetails.college}</div>
-            <div className="ref-id">#12FE67</div>
+          <div className="USER-DETAILS">
+            <img
+              src={user}
+              alt="user"
+              className="user-img"
+            ></img>
+            <div
+              className="user-details"
+              // navigate("/studentinfo", {
+              //   state: {
+              //     name: userDetails.profile,
+              //     college: userDetails.college,
+              //     uniqueID: userDetails.uniqueID,
+              //     userID: userDetails.userID,
+              //     events: userDetails.events,
+              //     passes: userDetails.passes,
+              //   },
+              // });
+            >
+              <div className="name">
+                {userDetails.name}
+              </div>
+              <div className="email">
+                {userDetails.college}
+              </div>
+              <div className="ref-id">
+                #{userDetails.uniqueID}
+              </div>
+              <NavUnlisted>
+                <Link
+                  to="/studentinfo"
+                  state={{
+                    name: userDetails.name,
+                    college: userDetails.college,
+                    userID: userDetails.userID,
+                    uniqueID:
+                      userDetails.uniqueID,
+                    events: userDetails.events,
+                    passes: userDetails.passes,
+                    type: adminType,
+                  }}
+                  style={linkStyle}
+                >
+                  Show details
+                </Link>
+              </NavUnlisted>
+            </div>
           </div>
-          {/* <Link
-            to="/studentinfo"
-            state={{
-              name: userDetails.name,
-              college: userDetails.college,
-              userID: userDetails.userID,
-              uniqueID: userDetails.uniqueID,
-              events: userDetails.events,
-              passes: userDetails.passes,
-              type: adminType,
-            }}
-          >
-            Show details
-          </Link> */}
         </div>
       ) : (
         <div id="reader"></div>

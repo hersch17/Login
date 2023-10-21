@@ -1,11 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useEffect,
+  useState,
+} from "react";
 import Select from "react-select";
 import {
   useNavigate,
   //Link,
 } from "react-router-dom";
 import "react-toastify/dist/ReactToastify.css";
-import { toast, ToastContainer } from "react-toastify";
+import {
+  toast,
+  ToastContainer,
+} from "react-toastify";
 
 import "../styles/login.css";
 import { loginRegister } from "../api";
@@ -34,11 +40,12 @@ const Login = () => {
 const EventAdminForm = () => {
   const navigate = useNavigate();
   //const dispatch = useDispatch();
-  const [eventAdminForm, setEventAdminForm] = useState({
-    email: "",
-    password: "",
-    remember: false,
-  });
+  const [eventAdminForm, setEventAdminForm] =
+    useState({
+      email: "",
+      password: "",
+      remember: false,
+    });
   // const [admin, setAdmin] = useState("");
   function handleSubmit() {
     //formData.isRegistration = false;
@@ -166,7 +173,9 @@ const EventAdminForm = () => {
         />
       </div> */}
         <div className="login-form-input-grp">
-          <label className="login-form-text-label">User ID:</label>
+          <label className="login-form-text-label">
+            User ID:
+          </label>
           <input
             className="login-form-text-inputs"
             name="email"
@@ -176,7 +185,9 @@ const EventAdminForm = () => {
           />
         </div>
         <div className="login-form-input-grp">
-          <label className="login-form-text-label">Password:</label>
+          <label className="login-form-text-label">
+            Password:
+          </label>
           <input
             className="login-form-text-inputs"
             name="password"
@@ -185,17 +196,24 @@ const EventAdminForm = () => {
             onChange={(e) => onChange(e)}
           />
         </div>
-        <button className="submit-btn" onClick={handleSubmit}>
+        <button
+          className="submit-btn"
+          onClick={handleSubmit}
+        >
           Login
         </button>
-        <ToastContainer />
       </div>
-      <img src={topLeft} alt="top-left-design" className="top-left"></img>
+      <img
+        src={topLeft}
+        alt="top-left-design"
+        className="top-left"
+      ></img>
       <img
         src={bottomRight}
         alt="bottom-right-design"
         className="bottom-right"
       ></img>
+      <ToastContainer />
     </div>
   );
 };
